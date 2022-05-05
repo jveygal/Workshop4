@@ -1,0 +1,70 @@
+---
+title: "Workshop4again"
+author: "Jasmin Veygal, s4676319"
+date: '2022-05-05'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+{r}
+library(tidyverse) #loads tidyverse package
+
+
+
+{r}
+survey <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-05-18/survey.csv')
+
+#survey <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-05-18/survey.csv’)
+
+{r}
+library(dplyr) #loads dplyr package
+
+{r}
+glimpse(survey) #glimpse shows us the data columns with the headers, it shows us the overall rows and columns in the dataset
+
+{r}
+#install.packages("skimr")
+library(skimr)
+skim(survey) #skim shows us a data summary of the dataset of its rows, columns & frequency of variable.
+#skimr::skim(survey)
+
+
+
+
+{r}
+filter(survey,city=='Boston') #filters dataset by Boston city
+
+{r}
+top_n(survey,10,(industry)) #sorts data by top 10 rows in accordance to timestamp for industry
+
+{r}
+arrange(survey,desc(industry)) #sorts data by descending order in industry
+
+{r}
+select(survey,industry,annual_salary)
+
+
+
+
+{r}
+x <- 10000
+case_when(
+  x %% 20000 == 0 ~ "annual_salary",
+  TRUE ~ as.character(x)
+)
+
+
+
+{r}
+survey%>%mutate(salary_band=case_when(annual_salary>=60000~"high",annual_salary<=55000~"low",TRUE~"medium"))
+
+
+{r}
+#select(survey,salary_band,annual_salary)
+select(survey, matches("salary_band"))
